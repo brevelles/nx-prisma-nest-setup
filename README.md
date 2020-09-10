@@ -1,10 +1,76 @@
-# Prisma
+# NX Workspace Setup with Prisma and NestJS
 
-This project was generated using [Nx](https://nx.dev).
+Prisma isn't supported by NX at the moment. This setup implements Prisma with a NestJS application.
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+The Prisma folder can be located anywhere in the monorepo. But the migration and generation commands have to be run from the Prisma folder.
 
-🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
+Multiple Prisma folders can be added for multiple projects living in the same monorepo. But only one Prisma Client can be generated at a time.
+
+In order to generate the Prisma Client for your application, install the packages and run the migration and generation commands.
+
+The current setup includes a Docker Compose file for the PostgreSQL database inside the Prisma folder.
+
+<p align="center" style="margin: 30px 0">
+  <img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="200">
+  <img src="https://docs.nestjs.com/assets/logo-small.svg" width="140" style="margin-left: 20px">
+  <img src="https://seeklogo.com/images/P/prisma-logo-3805665B69-seeklogo.com.png" width="120" style="margin-left: 20px">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/330px-Postgresql_elephant.svg.png" width="120" style="margin-left: 20px">
+  
+</p>
+
+<br>
+
+# Installation
+
+Install the dependencies:
+
+\$ `yarn install`
+
+<br>
+
+Enter the prisma folder:
+
+\$ `cd apps/prisma`
+
+<br>
+
+Start the PostgreSQL Docker container:
+
+\$ `docker-compose up -d`
+
+<br>
+
+Migrate the database (to be done every time you change the prisma schema):
+
+\$ `npx prisma migrate save -c --experimental`
+
+\$ `npx prisma migrate up -c --experimental`
+
+(Note: At the moment the --experiemntal flag is required)
+
+<br>
+
+Generate the Prisma Client:
+
+\$ `npx prisma generate`
+
+<br>
+
+Serve the Nest app from the root of the monorepo:
+
+\$ `cd ../..` (if needed)
+
+\$ `nx serve nest`
+
+<br>
+
+The API should be listening on `http://localhost:3333/api`
+
+<br>
+
+# NX
+
+**Nx is a set of Extensible Dev Tools for Monorepos.**
 
 ## Adding capabilities to your workspace
 
