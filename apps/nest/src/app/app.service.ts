@@ -1,8 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
 
 @Injectable()
-export class AppService {
+export class AppService extends PrismaClient {
   getData(): { message: string } {
-    return { message: 'Welcome to nest!' };
+    if (this.$connect()) {
+      return { message: 'Prisma Client Works! 👍' };
+    }
+    return {
+      message: 'Prisma Client Not Working... ☹️',
+    };
   }
 }

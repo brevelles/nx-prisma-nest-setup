@@ -8,8 +8,6 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  // Custom output location
-  output   = "./client"
 }
 
 // Temporary basic User schema
